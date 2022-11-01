@@ -1,20 +1,31 @@
 package com.udacity.jdnd.course3.critter.user.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 
 import org.hibernate.annotations.Nationalized;
+import org.hibernate.annotations.NaturalId;
+
+import com.udacity.jdnd.course3.critter.schedule.entity.Schedule;
 
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@MappedSuperclass
 @Getter
 @Setter
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
     @GeneratedValue
@@ -25,5 +36,9 @@ public class User {
 
     @Nationalized
     private String notes;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_schedule", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "schedule_id", referencedColumnName = "id"))
+    List<Schedule> schedules;
 
 }

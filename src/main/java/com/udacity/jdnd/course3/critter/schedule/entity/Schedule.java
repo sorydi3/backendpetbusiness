@@ -1,13 +1,17 @@
 package com.udacity.jdnd.course3.critter.schedule.entity;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import java.util.List;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.udacity.jdnd.course3.critter.user.entity.Customer;
 import com.udacity.jdnd.course3.critter.user.entity.Employee;
-import com.udacity.jdnd.course3.critter.user.repository.CusomerRepository;
+import com.udacity.jdnd.course3.critter.user.entity.User;
 
 import javax.persistence.GeneratedValue;
 
@@ -21,9 +25,21 @@ public class Schedule {
     @Id
     @GeneratedValue
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
     private Employee employee;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    LocalDateTime datee;
+
     private String activities;
-    private String date;
     private String notes;
+
+    // constructor
+    public Schedule() {
+    }
 }
