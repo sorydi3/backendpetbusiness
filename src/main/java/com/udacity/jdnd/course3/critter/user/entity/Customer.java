@@ -34,5 +34,6 @@ public class Customer {
 
     // constructor
     public Customer() {
+        // TODO document why this constructor is empty
     }
 }

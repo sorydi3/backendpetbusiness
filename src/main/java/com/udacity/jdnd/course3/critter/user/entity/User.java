@@ -2,18 +2,14 @@ package com.udacity.jdnd.course3.critter.user.entity;
 
 import java.util.List;
 
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 
 import org.hibernate.annotations.Nationalized;
-import org.hibernate.annotations.NaturalId;
 
 import com.udacity.jdnd.course3.critter.schedule.entity.Schedule;
 
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinTable;

@@ -2,7 +2,6 @@ package com.udacity.jdnd.course3.critter.schedule.entity;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.Id;
@@ -11,7 +10,6 @@ import javax.persistence.ManyToOne;
 
 import com.udacity.jdnd.course3.critter.user.entity.Customer;
 import com.udacity.jdnd.course3.critter.user.entity.Employee;
-import com.udacity.jdnd.course3.critter.user.entity.User;
 
 import javax.persistence.GeneratedValue;
 
@@ -41,5 +39,6 @@ public class Schedule {
 
     // constructor
     public Schedule() {
+        // TODO document why this constructor is empty
     }
 }

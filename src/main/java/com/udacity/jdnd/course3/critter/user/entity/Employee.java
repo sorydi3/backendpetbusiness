@@ -8,11 +8,9 @@ import javax.persistence.FetchType;
 
 import com.udacity.jdnd.course3.critter.schedule.entity.Schedule;
 
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.InheritanceType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +35,7 @@ public class Employee {
 
     // constructor
     public Employee() {
+        // TODO document why this constructor is empty
     }
 
 }
