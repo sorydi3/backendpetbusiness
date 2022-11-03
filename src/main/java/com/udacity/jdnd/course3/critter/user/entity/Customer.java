@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.udacity.jdnd.course3.critter.pet.entity.Pet;
 import com.udacity.jdnd.course3.critter.schedule.entity.Schedule;
@@ -16,6 +17,7 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "customerTable")
 public class Customer {
     @Id
     @GeneratedValue

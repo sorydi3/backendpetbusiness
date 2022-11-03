@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import com.udacity.jdnd.course3.critter.schedule.entity.Schedule;
 
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Table(name = "employeeTable")
 public class Employee {
 
     @Id

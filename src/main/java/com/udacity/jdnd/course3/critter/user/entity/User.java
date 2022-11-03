@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
 import lombok.Getter;
@@ -22,6 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "userTable")
 public class User {
     @Id
     @GeneratedValue
@@ -32,9 +34,4 @@ public class User {
 
     @Nationalized
     private String notes;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_schedule", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "schedule_id", referencedColumnName = "id"))
-    List<Schedule> schedules;
-
 }
