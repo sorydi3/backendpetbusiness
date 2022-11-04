@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "userTable")
+@Table(name = "usertable")
 public class User {
     @Id
     @GeneratedValue

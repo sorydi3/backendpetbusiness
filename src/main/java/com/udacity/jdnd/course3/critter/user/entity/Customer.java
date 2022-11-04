@@ -17,7 +17,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "customerTable")
+@Table(name = "customertable")
 public class Customer {
     @Id
     @GeneratedValue

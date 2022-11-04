@@ -12,7 +12,7 @@ import com.udacity.jdnd.course3.critter.pet.PetType;
 import com.udacity.jdnd.course3.critter.user.entity.Customer;
 
 @Entity
-@Table(name = "petTable")
+@Table(name = "pettable")
 public class Pet {
     @Id
     @GeneratedValue
