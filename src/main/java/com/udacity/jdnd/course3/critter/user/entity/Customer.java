@@ -24,6 +24,12 @@ public class Customer {
     private Long id;
 
     @Column
+    private String name;
+
+    @Column
+    private String notes;
+
+    @Column
     private String phoneNumber;
     @Column
     private String address;
