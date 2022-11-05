@@ -75,3 +75,7 @@ lerna-debug.log*
 ### hide sencible data ###
 .env
 config/DataSourceConfig.java
+
+### BUILD ###
+build/
+target/
