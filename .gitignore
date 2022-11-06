@@ -79,3 +79,19 @@ config/DataSourceConfig.java
 ### BUILD ###
 build/
 target/
+target/test-classes/com/udacity/jdnd/course3/critter/CritterFunctionalTest.class
+target/test-classes/com/udacity/jdnd/course3/critter/CritterFunctionalTest.class
+target/test-classes/com/udacity/jdnd/course3/critter/CritterFunctionalTest.class
+target/classes/com/udacity/jdnd/course3/critter/user/repository/EmployeeRepository.class
+target/classes/com/udacity/jdnd/course3/critter/user/repository/CusomerRepository.class
+target/classes/com/udacity/jdnd/course3/critter/user/entity/Employee.class
+target/classes/com/udacity/jdnd/course3/critter/user/entity/Customer.class
+target/classes/com/udacity/jdnd/course3/critter/user/UserController.class
+target/classes/com/udacity/jdnd/course3/critter/user/EmployeeSkill.class
+target/classes/com/udacity/jdnd/course3/critter/user/EmployeeRequestDTO.class
+target/classes/com/udacity/jdnd/course3/critter/user/EmployeeDTO.class
+target/classes/com/udacity/jdnd/course3/critter/user/CustomerDTO.class
+target/classes/com/udacity/jdnd/course3/critter/schedule/ScheduleDTO.class
+target/classes/com/udacity/jdnd/course3/critter/pet/repository/PetRepository.class
+target/classes/com/udacity/jdnd/course3/critter/pet/entity/Pet.class
+target/classes/com/udacity/jdnd/course3/critter/pet/PetController.class
