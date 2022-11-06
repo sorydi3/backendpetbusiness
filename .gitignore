@@ -95,3 +95,4 @@ target/classes/com/udacity/jdnd/course3/critter/schedule/ScheduleDTO.class
 target/classes/com/udacity/jdnd/course3/critter/pet/repository/PetRepository.class
 target/classes/com/udacity/jdnd/course3/critter/pet/entity/Pet.class
 target/classes/com/udacity/jdnd/course3/critter/pet/PetController.class
+src/main/java/com/udacity/jdnd/course3/critter/pet/ResponseDTO.java
