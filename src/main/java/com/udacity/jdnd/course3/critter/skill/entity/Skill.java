@@ -1,4 +1,4 @@
-package com.udacity.jdnd.course3.critter.skill;
+package com.udacity.jdnd.course3.critter.skill.entity;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.udacity.jdnd.course3.critter.employeeskill.EmployeeSkill;
+import com.udacity.jdnd.course3.critter.employeeskill.entity.EmployeeSkill;
 import com.udacity.jdnd.course3.critter.user.Skils;
 
 import lombok.Getter;
@@ -30,4 +30,10 @@ public class Skill {
 
     @OneToMany(mappedBy = "skill")
     private List<EmployeeSkill> employee;
+
+    // constructor with killName
+    public Skill(Skils skillName) {
+        this.skillName = skillName;
+    }
+
 }
