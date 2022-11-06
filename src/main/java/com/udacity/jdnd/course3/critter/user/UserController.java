@@ -3,10 +3,12 @@ package com.udacity.jdnd.course3.critter.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.udacity.jdnd.course3.critter.Utils;
 import com.udacity.jdnd.course3.critter.user.service.CustomerService;
 import com.udacity.jdnd.course3.critter.user.service.EmployeeService;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -39,7 +41,11 @@ public class UserController {
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers() {
-        throw new UnsupportedOperationException();
+        List<CustomerDTO> customerDTOs = new ArrayList<>();
+        customerService.getAllCustomers().forEach(customer -> {
+            customerDTOs.add(utils.convertCustomertoCustomerDTO(customer));
+        });
+        return customerDTOs;
     }
 
     @GetMapping("/customer/pet/{petId}")
@@ -49,7 +55,8 @@ public class UserController {
 
     @PostMapping("/employee")
     public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        throw new UnsupportedOperationException();
+        return utils.convertEmployeetoEmployeeDTO(
+                employeeService.saveEmployee(employeeDTO));
     }
 
     @PostMapping("/employee/{employeeId}")
