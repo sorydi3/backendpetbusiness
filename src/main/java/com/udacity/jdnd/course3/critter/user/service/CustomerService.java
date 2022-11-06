@@ -18,13 +18,20 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    // TODO Get customer
+    // TODO Get customer by id
+
+    public Customer getCustomerById(Long id) {
+        return customerRepository.findById(id).orElse(null);
+    }
 
     // TODO Get customer/owner by pet
 
     // TODO Get customer by schedule
 
     // TODO Get all customers
+    public Iterable<Customer> getAllCustomers() {
+        return customerRepository.findAll();
+    }
 
     // TODO Delete customer
 
