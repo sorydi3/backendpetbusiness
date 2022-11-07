@@ -59,8 +59,12 @@ public class Utils {
 
     public CustomerDTO convertCustomertoCustomerDTO(Customer customer) {
         CustomerDTO customerDTO = new CustomerDTO();
-        BeanUtils.copyProperties(customer, customerDTO);
-        return customerDTO;
+        if (customer != null) {
+            BeanUtils.copyProperties(customer, customerDTO);
+            return customerDTO;
+        } else {
+            return null;
+        }
     }
 
     public Customer convertCustomerDTOtoCustomer(CustomerDTO customerDTO) {
