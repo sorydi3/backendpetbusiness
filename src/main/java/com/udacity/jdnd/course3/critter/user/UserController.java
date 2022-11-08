@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.udacity.jdnd.course3.critter.Utils;
+import com.udacity.jdnd.course3.critter.schedule.entity.Schedule;
+import com.udacity.jdnd.course3.critter.schedule.service.ScheduleService;
+import com.udacity.jdnd.course3.critter.user.entity.Employee;
 import com.udacity.jdnd.course3.critter.user.service.CustomerService;
 import com.udacity.jdnd.course3.critter.user.service.EmployeeService;
 
@@ -32,6 +35,9 @@ public class UserController {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    ScheduleService scheduleService;
 
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
@@ -66,7 +72,12 @@ public class UserController {
 
     @PutMapping("/employee/{employeeId}")
     public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
-        throw new UnsupportedOperationException();
+        Employee employee = employeeService.getEmployeeById(employeeId);
+
+        daysAvailable.forEach(day -> {
+            scheduleService.addScheduleDay(day, employee);
+        });
+        System.out.println("Employee availability set");
     }
 
     @GetMapping("/employee/availability")

@@ -1,6 +1,6 @@
 package com.udacity.jdnd.course3.critter.schedule.entity;
 
-import java.time.LocalDateTime;
+import java.time.DayOfWeek;
 
 import javax.persistence.Entity;
 
@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.udacity.jdnd.course3.critter.dayofweek.entity.Day;
 import com.udacity.jdnd.course3.critter.user.entity.Customer;
 import com.udacity.jdnd.course3.critter.user.entity.Employee;
 
@@ -34,7 +35,9 @@ public class Schedule {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    LocalDateTime datee;
+    @ManyToOne
+    @JoinColumn(name = "day_id")
+    Day dayOfWeek;
 
     private String activities;
     private String notes;

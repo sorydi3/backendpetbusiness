@@ -55,7 +55,11 @@ public class EmployeeService {
         return savedEmpl;
     }
 
-    // TODO: Get employee
+    // TODO: Get employee by id
+
+    public Employee getEmployeeById(Long id) {
+        return employeeRepository.findById(id).orElse(null);
+    }
 
     // TODO: Get employee by schedule
 
