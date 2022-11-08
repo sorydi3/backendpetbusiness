@@ -2,6 +2,9 @@ package com.udacity.jdnd.course3.critter.schedule;
 
 import com.udacity.jdnd.course3.critter.user.Skils;
 
+import lombok.Data;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -11,12 +14,14 @@ import java.util.Set;
  * map
  * to the database directly.
  */
+@Data
 public class ScheduleDTO {
     private long id;
     private List<Long> employeeIds;
     private List<Long> petIds;
     private LocalDate date;
     private Set<Skils> activities;
+    Set<DayOfWeek> days;
 
     public long getId() {
         return id;
