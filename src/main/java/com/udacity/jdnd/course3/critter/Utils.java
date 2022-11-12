@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 
 import com.udacity.jdnd.course3.critter.pet.PetDTO;
 import com.udacity.jdnd.course3.critter.pet.entity.Pet;
+import com.udacity.jdnd.course3.critter.schedule.ScheduleDTO;
+import com.udacity.jdnd.course3.critter.schedule.entity.Schedule;
 import com.udacity.jdnd.course3.critter.user.CustomerDTO;
 import com.udacity.jdnd.course3.critter.user.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.user.entity.Customer;
@@ -45,8 +47,9 @@ public class Utils {
     public EmployeeDTO convertEmployeetoEmployeeDTO(Employee employee) {
         EmployeeDTO employeeDTO = new EmployeeDTO();
         BeanUtils.copyProperties(employee, employeeDTO);
-        System.out.println("EmployeeDTO: " + employeeDTO);
-        System.out.println("Employee: " + employee);
+        employee.getSkill().forEach(skill -> {
+            employeeDTO.getSkills().add(skill.getSkill().getSkillName());
+        });
         return employeeDTO;
     }
 
@@ -84,5 +87,17 @@ public class Utils {
         BeanUtils.copyProperties(pet, petDTO);
         petDTO.setOwnerId(pet.getOwner().getId());
         return petDTO;
+    }
+
+    public Schedule scheduleDTOtoSchedule(ScheduleDTO scheduleDTO) {
+        Schedule schedule = new Schedule();
+        BeanUtils.copyProperties(scheduleDTO, schedule);
+        return schedule;
+    }
+
+    public ScheduleDTO scheduleToScheduleDTO(Schedule schedule) {
+        ScheduleDTO scheduleDTO = new ScheduleDTO();
+        BeanUtils.copyProperties(schedule, scheduleDTO);
+        return scheduleDTO;
     }
 }
