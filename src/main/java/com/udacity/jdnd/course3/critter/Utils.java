@@ -7,8 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import com.udacity.jdnd.course3.critter.employeeskill.service.EmployeeSkillService;
 import com.udacity.jdnd.course3.critter.pet.PetDTO;
 import com.udacity.jdnd.course3.critter.pet.entity.Pet;
+import com.udacity.jdnd.course3.critter.pet.service.PetService;
 import com.udacity.jdnd.course3.critter.schedule.ScheduleDTO;
 import com.udacity.jdnd.course3.critter.schedule.entity.Schedule;
+import com.udacity.jdnd.course3.critter.schedule.service.ScheduleService;
 import com.udacity.jdnd.course3.critter.user.CustomerDTO;
 import com.udacity.jdnd.course3.critter.user.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.user.entity.Customer;
@@ -19,6 +21,12 @@ public class Utils {
 
     @Autowired
     EmployeeSkillService employeeSkillService;
+
+    @Autowired
+    PetService petService;
+
+    @Autowired
+    ScheduleService schedule;
 
     public static final String CUSTOMER = "Customer";
     public static final String EMPLOYEE = "Employee";
@@ -53,6 +61,16 @@ public class Utils {
         EmployeeDTO employeeDTO = new EmployeeDTO();
         BeanUtils.copyProperties(employee, employeeDTO);
         employeeDTO.setSkills(employeeSkillService.getEmployeeSkills(employee));
+
+        schedule.getAllSchedulesByEmployee(employee).forEach(schedule -> {
+            if (employeeDTO.getDaysAvailable() == null) {
+                employeeDTO.initDaysAvailable();
+                employeeDTO.getDaysAvailable().add(schedule.getDayOfWeek().getDayOfWeek());
+            } else {
+                employeeDTO.getDaysAvailable().add(schedule.getDayOfWeek().getDayOfWeek());
+            }
+
+        });
         return employeeDTO;
     }
 
@@ -67,6 +85,7 @@ public class Utils {
         CustomerDTO customerDTO = new CustomerDTO();
         if (customer != null) {
             BeanUtils.copyProperties(customer, customerDTO);
+            petService.getAllPetsByOwner(customer.getId()).forEach(pet -> customerDTO.getPetIds().add(pet.getId()));
             return customerDTO;
         } else {
             return null;
@@ -88,7 +107,9 @@ public class Utils {
     public PetDTO convertPetToPetDTO(Pet pet) {
         PetDTO petDTO = new PetDTO();
         BeanUtils.copyProperties(pet, petDTO);
-        petDTO.setOwnerId(pet.getOwner().getId());
+        if (pet.getOwner() != null) {
+            petDTO.setOwnerId(pet.getOwner().getId());
+        }
         return petDTO;
     }
 
