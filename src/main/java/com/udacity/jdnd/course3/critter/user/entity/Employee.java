@@ -1,5 +1,7 @@
 package com.udacity.jdnd.course3.critter.user.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -32,10 +34,6 @@ public class Employee {
     @Column(name = "name")
     @Nationalized
     private String name;
-
-    @Column
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<EmployeeSkill> skill;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     Set<Schedule> schedules;
