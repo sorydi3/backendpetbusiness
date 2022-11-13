@@ -12,7 +12,7 @@ import com.udacity.jdnd.course3.critter.Utils;
 import com.udacity.jdnd.course3.critter.employeeskill.entity.EmployeeSkill;
 import com.udacity.jdnd.course3.critter.employeeskill.service.EmployeeSkillService;
 import com.udacity.jdnd.course3.critter.skill.entity.Skill;
-import com.udacity.jdnd.course3.critter.skill.service.skillService;
+import com.udacity.jdnd.course3.critter.skill.service.SkillService;
 import com.udacity.jdnd.course3.critter.user.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.user.Skils;
 import com.udacity.jdnd.course3.critter.user.entity.Employee;
@@ -22,7 +22,7 @@ import com.udacity.jdnd.course3.critter.user.repository.EmployeeRepository;
 public class EmployeeService {
 
     @Autowired
-    skillService skillService;
+    SkillService skillService;
 
     @Autowired
     EmployeeSkillService employeeSkillService;
@@ -38,7 +38,6 @@ public class EmployeeService {
     public Employee saveEmployee(EmployeeDTO employee) {
         Employee savedEmpl = employeeRepository.save(utils.convertEmployeeDTOtoEmployee(employee));
         Set<Skils> skills = employee.getSkills();
-
         skills.forEach(skill -> {
             EmployeeSkill employeeSkill = new EmployeeSkill();
             Skill skillEntity = skillService.getSkillByName(skill);
@@ -46,12 +45,14 @@ public class EmployeeService {
                 skillEntity = skillService.saveSkill(new Skill(skill));
             }
             employeeSkill.setEmployee(savedEmpl);
+
             employeeSkill.setSkill(skillEntity);
 
             employeeSkillService.saveEmployeeSkill(employeeSkill);
+            System.out.println("EmployeeSkill saved" + employeeSkill);
         });
         System.out.println("Employee saved");
-        System.out.println("SKILLS LIST ------>>>>>>>>>>>>>>>>>>>>>>>" + savedEmpl.getSkill());
+        System.out.println("SKILLS LIST ------>>>>>>>>>>>>>>>>>>>>>>>");
         return savedEmpl;
     }
 
