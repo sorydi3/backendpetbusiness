@@ -1,8 +1,10 @@
 package com.udacity.jdnd.course3.critter;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import com.udacity.jdnd.course3.critter.employeeskill.service.EmployeeSkillService;
 import com.udacity.jdnd.course3.critter.pet.PetDTO;
 import com.udacity.jdnd.course3.critter.pet.entity.Pet;
 import com.udacity.jdnd.course3.critter.schedule.ScheduleDTO;
@@ -14,6 +16,9 @@ import com.udacity.jdnd.course3.critter.user.entity.Employee;
 
 @Configuration
 public class Utils {
+
+    @Autowired
+    EmployeeSkillService employeeSkillService;
 
     public static final String CUSTOMER = "Customer";
     public static final String EMPLOYEE = "Employee";
@@ -47,9 +52,7 @@ public class Utils {
     public EmployeeDTO convertEmployeetoEmployeeDTO(Employee employee) {
         EmployeeDTO employeeDTO = new EmployeeDTO();
         BeanUtils.copyProperties(employee, employeeDTO);
-        employee.getSkill().forEach(skill -> {
-            employeeDTO.getSkills().add(skill.getSkill().getSkillName());
-        });
+        employeeDTO.setSkills(employeeSkillService.getEmployeeSkills(employee));
         return employeeDTO;
     }
 

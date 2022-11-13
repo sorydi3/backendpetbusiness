@@ -1,6 +1,8 @@
 package com.udacity.jdnd.course3.critter.employeeskill.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -10,27 +12,26 @@ import javax.persistence.Table;
 import com.udacity.jdnd.course3.critter.skill.entity.Skill;
 import com.udacity.jdnd.course3.critter.user.entity.Employee;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "employeeskilltable")
-@Getter
-@Setter
+@Data
 public class EmployeeSkill {
     @Id
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "skill_id")
     private Skill skill;
 
     public EmployeeSkill() {
     }
 }
-    
