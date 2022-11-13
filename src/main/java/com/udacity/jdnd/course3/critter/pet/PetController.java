@@ -34,7 +34,9 @@ public class PetController {
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
         Customer customer = customerService.getCustomerById(petDTO.getOwnerId());
         Pet pet = utils.convertPetDTOtoPet(petDTO);
-        pet.setOwner(customer);
+        if (customer != null) {
+            pet.setOwner(customer);
+        }
         pet = petService.savePet(pet);
         return utils.convertPetToPetDTO(pet);
     }
