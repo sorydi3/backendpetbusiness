@@ -1,6 +1,7 @@
 package com.udacity.jdnd.course3.critter.schedule.service;
 
 import java.time.DayOfWeek;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,14 +24,33 @@ public class ScheduleService {
     public Schedule addScheduleDay(DayOfWeek day_p, Employee employee) {
 
         Day day = dayService.findByDayOfWeek(day_p);
-        // dayOfWeek
-
+        if (day == null) {
+            day = dayService.addDay(day_p);
+        }
         Schedule schedule = new Schedule();
-        // schedule.setDayOfWeek(day);
         schedule.setEmployee(employee);
         schedule.setDayOfWeek(day);
-
         return scheduleRepository.save(schedule);
+    }
+
+    public List<Day> getAllSchedules() {
+        return (List) dayService.getAllSchedules();
+    }
+
+    public Schedule saveSchedule(Schedule schedule) {
+        return scheduleRepository.save(schedule);
+    }
+
+    public List<Schedule> getAllSchedulesByEmployee(Employee employee) {
+        return scheduleRepository.findByEmployee(employee);
+    }
+
+    public List<Schedule> getAllSchedulesByDay(DayOfWeek day) {
+        return scheduleRepository.findByDayOfWeek(day);
+    }
+
+    public List<Schedule> getAllSchedulesByDay(Day day) {
+        return scheduleRepository.findByDayOfWeek(day.getDayOfWeek());
     }
 
 }
