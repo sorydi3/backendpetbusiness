@@ -1,5 +1,8 @@
 package com.udacity.jdnd.course3.critter.user.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -11,6 +14,8 @@ import org.springframework.stereotype.Service;
 import com.udacity.jdnd.course3.critter.Utils;
 import com.udacity.jdnd.course3.critter.employeeskill.entity.EmployeeSkill;
 import com.udacity.jdnd.course3.critter.employeeskill.service.EmployeeSkillService;
+import com.udacity.jdnd.course3.critter.schedule.ScheduleController;
+import com.udacity.jdnd.course3.critter.schedule.service.ScheduleService;
 import com.udacity.jdnd.course3.critter.skill.entity.Skill;
 import com.udacity.jdnd.course3.critter.skill.service.SkillService;
 import com.udacity.jdnd.course3.critter.user.EmployeeDTO;
@@ -23,6 +28,12 @@ public class EmployeeService {
 
     @Autowired
     SkillService skillService;
+
+    @Autowired
+    ScheduleController scheduleController;
+
+    @Autowired
+    ScheduleService scheduleService;
 
     @Autowired
     EmployeeSkillService employeeSkillService;
@@ -49,10 +60,13 @@ public class EmployeeService {
             employeeSkill.setSkill(skillEntity);
 
             employeeSkillService.saveEmployeeSkill(employeeSkill);
-            System.out.println("EmployeeSkill saved" + employeeSkill);
         });
-        System.out.println("Employee saved");
-        System.out.println("SKILLS LIST ------>>>>>>>>>>>>>>>>>>>>>>>");
+
+        if (employee.getDaysAvailable() != null) {
+            employee.getDaysAvailable().forEach(day -> {
+                scheduleService.addScheduleDay(day, savedEmpl);
+            });
+        }
         return savedEmpl;
     }
 
@@ -62,7 +76,20 @@ public class EmployeeService {
         return employeeRepository.findById(id).orElse(null);
     }
 
-    // TODO: Get employee by schedule
+    public List<Employee> findEmployeesForService(Set<Skils> skills, LocalDate date) {
+        Iterable<Employee> employees = employeeRepository.findAll();
+        List<Employee> employeesForService = new ArrayList<>();
+
+        employees.forEach(employee -> {
+            Set<Skils> employeeSkills = employeeSkillService.getEmployeeSkills(employee);
+            if (scheduleService.isEmployeeAvailable(employee, date.getDayOfWeek())
+                    && employeeSkills.containsAll(skills)) {
+                employeesForService.add(employee);
+            }
+
+        });
+        return employeesForService;
+    }
 
     // TODO: Get all employees
 

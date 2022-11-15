@@ -33,6 +33,17 @@ public class ScheduleService {
         return scheduleRepository.save(schedule);
     }
 
+    public boolean isEmployeeAvailable(Employee employee, DayOfWeek day) {
+        List<Schedule> schedules = scheduleRepository.findByEmployee(employee);
+
+        for (Schedule schedule : schedules) {
+            if (schedule.getDayOfWeek().getDayOfWeek().equals(day)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<Day> getAllSchedules() {
         return (List) dayService.getAllSchedules();
     }
