@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.udacity.jdnd.course3.critter.employeeskill.entity.EmployeeSkill;
 import com.udacity.jdnd.course3.critter.employeeskill.repository.EmployeeSkillRepository;
-import com.udacity.jdnd.course3.critter.schedule.service.ScheduleService;
 import com.udacity.jdnd.course3.critter.skill.service.SkillService;
 import com.udacity.jdnd.course3.critter.user.Skils;
 import com.udacity.jdnd.course3.critter.user.entity.Employee;
@@ -31,11 +30,8 @@ public class EmployeeSkillService {
 
     public Set<Skils> getEmployeeSkills(Employee employee) {
         List<EmployeeSkill> skills = employeeSkillRepository.findByEmployee(employee);
-        Set<Skils> skils = new HashSet<Skils>();
-        skills.forEach(skill -> {
-            skils.add(skill.getSkill().getSkillName());
-        });
-
+        Set<Skils> skils = new HashSet<>();
+        skills.forEach(skill -> skils.add(skill.getSkill().getSkillName()));
         return skils;
     }
 }
