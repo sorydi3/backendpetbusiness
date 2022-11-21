@@ -21,7 +21,6 @@ public class ScheduleDTO {
     private List<Long> petIds;
     private LocalDate date;
     private Set<Skils> activities;
-    Set<DayOfWeek> days;
 
     public long getId() {
         return id;
