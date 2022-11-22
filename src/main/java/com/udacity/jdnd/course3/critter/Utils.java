@@ -1,5 +1,9 @@
 package com.udacity.jdnd.course3.critter;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -122,6 +126,22 @@ public class Utils {
     public ScheduleDTO scheduleToScheduleDTO(Schedule schedule) {
         ScheduleDTO scheduleDTO = new ScheduleDTO();
         BeanUtils.copyProperties(schedule, scheduleDTO);
+        return scheduleDTO;
+    }
+
+    public ScheduleDTO covertScheduleToScheduleDTO(LocalDate date) {
+        List<Long> employeeIds = new ArrayList<>();
+        List<Long> petIds = new ArrayList<>();
+        schedule.getAllSchedulesByDay(date.getDayOfWeek()).forEach(schedule_aux -> {
+            Employee employee = schedule_aux.getEmployee();
+            employeeIds.add(employee.getId());
+            petService.getAllPetsByOwner(employee.getId()).forEach(pet -> petIds.add(pet.getId()));
+        });
+
+        ScheduleDTO scheduleDTO = new ScheduleDTO();
+        scheduleDTO.setEmployeeIds(employeeIds);
+        scheduleDTO.setPetIds(petIds);
+        scheduleDTO.setDate(date);
         return scheduleDTO;
     }
 }

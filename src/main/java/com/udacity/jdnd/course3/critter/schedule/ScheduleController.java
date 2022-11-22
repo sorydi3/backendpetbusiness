@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.udacity.jdnd.course3.critter.Utils;
 import com.udacity.jdnd.course3.critter.dayofweek.service.DayService;
+import com.udacity.jdnd.course3.critter.schedule.entity.Schedule;
 import com.udacity.jdnd.course3.critter.schedule.service.ScheduleService;
 
 import java.util.List;
@@ -27,11 +28,11 @@ public class ScheduleController {
 
     @PostMapping
     public ScheduleDTO createSchedule(@RequestBody ScheduleDTO scheduleDTO) {
-        System.out.println("ScheduleController.createSchedule()" + scheduleDTO.getDays());
-        scheduleDTO.getDays().forEach(day -> {
-            dayService.addDay(day);
-        });
-        return null;
+        scheduleService.createSchedule(scheduleDTO);
+
+        ScheduleDTO schedulee = utils.covertScheduleToScheduleDTO(scheduleDTO.getDate());
+
+        return schedulee;
     }
 
     @GetMapping
