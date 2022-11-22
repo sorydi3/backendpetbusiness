@@ -63,12 +63,10 @@ public class ScheduleService {
         return scheduleRepository.save(schedule);
     }
 
-    public List<Schedule> createSchedule(ScheduleDTO scheduleDTO) {
-
+    public void createSchedule(ScheduleDTO scheduleDTO) {
         List<Long> employeeIds = scheduleDTO.getEmployeeIds();
         List<Long> petIds = scheduleDTO.getPetIds();
         String dayOfWeek = scheduleDTO.getDate().getDayOfWeek().toString();
-        List<Schedule> schedules = new ArrayList<>();
         employeeIds.forEach(employeeId -> {
             Employee employee = employeeService.getEmployeeById(employeeId);
             if (employee != null) {
@@ -78,12 +76,9 @@ public class ScheduleService {
                     schedule.setCustomer(pet.getOwner());
                     schedule.setEmployee(employee);
                     schedule.setDayOfWeek(dayService.findByDayOfWeek(DayOfWeek.valueOf(dayOfWeek)));
-                    schedules.add(scheduleRepository.save(schedule));
                 });
             }
         });
-
-        return schedules;
     }
 
     public List<Schedule> getAllSchedulesByEmployee(Employee employee) {
