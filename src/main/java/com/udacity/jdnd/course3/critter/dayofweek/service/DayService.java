@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import com.udacity.jdnd.course3.critter.dayofweek.entity.Day;
 import com.udacity.jdnd.course3.critter.dayofweek.repository.DayRepository;
 
-import antlr.collections.List;
-
 @Service
 public class DayService {
 
