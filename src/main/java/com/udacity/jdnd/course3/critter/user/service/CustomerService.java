@@ -1,5 +1,7 @@
 package com.udacity.jdnd.course3.critter.user.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +20,14 @@ public class CustomerService {
     PetService petService;
 
     // TODO Save customer
-
+    @Transactional
     public Customer saveCustomer(Customer customer) {
+        System.out.println("CustomerService.saveCustomer()");
         return customerRepository.save(customer);
     }
 
     // TODO Get customer by id
-
+    @Transactional
     public Customer getCustomerById(Long id) {
         return customerRepository.findById(id).orElse(null);
     }
@@ -34,6 +37,7 @@ public class CustomerService {
     // TODO Get customer by schedule
 
     // TODO Get all customers
+    @Transactional
     public Iterable<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
@@ -49,6 +53,7 @@ public class CustomerService {
     // TODO get all customer pets
 
     // TODO get owner by pet
+    @Transactional
     public Customer getOwnerByPet(Long petId) {
         Pet pet = petService.getPetById(petId);
         if (pet != null) {
