@@ -15,12 +15,12 @@ import com.udacity.jdnd.course3.critter.user.entity.Employee;
 
 import javax.persistence.GeneratedValue;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "scheduletable")
 public class Schedule {
     @Id
@@ -46,4 +46,5 @@ public class Schedule {
     public Schedule() {
         // TODO document why this constructor is empty
     }
+
 }

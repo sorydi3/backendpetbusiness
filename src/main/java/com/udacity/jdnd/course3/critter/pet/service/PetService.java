@@ -30,7 +30,7 @@ public class PetService {
 
     // get pet by id
 
-    public Pet  getPetById(Long id) {
+    public Pet getPetById(Long id) {
         return petRepository.findById(id).orElse(null);
     }
 
