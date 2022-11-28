@@ -13,8 +13,6 @@ import com.udacity.jdnd.course3.critter.skill.entity.Skill;
 import com.udacity.jdnd.course3.critter.user.entity.Employee;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "employeeskilltable")
@@ -33,5 +31,6 @@ public class EmployeeSkill {
     private Skill skill;
 
     public EmployeeSkill() {
+        // TODO this constructor is required by JPA
     }
 }
