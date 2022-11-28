@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import com.udacity.jdnd.course3.critter.dayofweek.entity.Day;
+import com.udacity.jdnd.course3.critter.dayofweek.service.DayService;
 import com.udacity.jdnd.course3.critter.employeeskill.service.EmployeeSkillService;
 import com.udacity.jdnd.course3.critter.pet.PetDTO;
 import com.udacity.jdnd.course3.critter.pet.entity.Pet;
@@ -31,6 +33,12 @@ public class Utils {
 
     @Autowired
     ScheduleService schedule;
+
+    @Autowired
+    DayService dayService;
+
+    @Autowired
+    ScheduleService scheduleService;
 
     public static final String CUSTOMER = "Customer";
     public static final String EMPLOYEE = "Employee";
@@ -124,18 +132,30 @@ public class Utils {
     }
 
     public ScheduleDTO scheduleToScheduleDTO(Schedule schedule) {
+        List<Long> employeeIds = new ArrayList<>();
+        List<Long> petIds = new ArrayList<>();
+
         ScheduleDTO scheduleDTO = new ScheduleDTO();
-        BeanUtils.copyProperties(schedule, scheduleDTO);
+
         return scheduleDTO;
     }
 
     public ScheduleDTO covertScheduleToScheduleDTO(LocalDate date) {
         List<Long> employeeIds = new ArrayList<>();
         List<Long> petIds = new ArrayList<>();
-        schedule.getAllSchedulesByDay(date.getDayOfWeek()).forEach(schedule_aux -> {
+        Day day = dayService.findByDayOfWeek(date.getDayOfWeek());
+        schedule.getAllSchedulesByDay(day).forEach(schedule_aux -> {
             Employee employee = schedule_aux.getEmployee();
+
+            /// System.out.println("employee: " + employee);
             employeeIds.add(employee.getId());
-            petService.getAllPetsByOwner(employee.getId()).forEach(pet -> petIds.add(pet.getId()));
+            petService.getAllPets().forEach(pet -> {
+
+            });
+            // Customer customer =
+            // petService.getAllPetsByOwner(employee.getId()).forEach(pet ->
+            // petIds.add(pet.getId()));
+
         });
 
         ScheduleDTO scheduleDTO = new ScheduleDTO();
@@ -143,5 +163,11 @@ public class Utils {
         scheduleDTO.setPetIds(petIds);
         scheduleDTO.setDate(date);
         return scheduleDTO;
+    }
+
+    public List<ScheduleDTO> convertScheduleListToScheduleDTOList(Iterable<Schedule> schedules) {
+        List<ScheduleDTO> scheduleDTOs = new ArrayList<>();
+        schedules.forEach(schedule -> scheduleDTOs.add(scheduleToScheduleDTO(schedule)));
+        return scheduleDTOs;
     }
 }
