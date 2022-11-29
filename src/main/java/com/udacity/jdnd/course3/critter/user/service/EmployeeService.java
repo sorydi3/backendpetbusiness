@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
-import javax.validation.constraints.Null;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +36,9 @@ public class EmployeeService {
 
     @Autowired
     EmployeeSkillService employeeSkillService;
+
+    @Autowired
+    EmployeeService employeeService;
 
     @Autowired
     Utils utils;
@@ -70,6 +72,22 @@ public class EmployeeService {
         return savedEmpl;
     }
 
+    public void addEmployeeSkill(Long employeeId, List<Skils> skills) {
+
+        for (Skils skills2 : skills) {
+            EmployeeSkill employeeSkill = new EmployeeSkill();
+            Skill skillEntity = skillService.getSkillByName(skills2);
+            if (skillEntity == null) {
+                skillEntity = skillService.saveSkill(new Skill(skills2));
+            }
+            employeeSkill.setEmployee(employeeService.getEmployeeById(employeeId));
+
+            employeeSkill.setSkill(skillEntity);
+
+            employeeSkillService.saveEmployeeSkill(employeeSkill);
+        }
+    }
+
     // TODO: Get employee by id
 
     public Employee getEmployeeById(Long id) {
@@ -96,4 +114,5 @@ public class EmployeeService {
     // TODO: Get all employees by skill
 
     // TODO: get employee schedule
+
 }

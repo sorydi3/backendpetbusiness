@@ -37,7 +37,9 @@ public class ScheduleController {
 
     @GetMapping
     public List<ScheduleDTO> getAllSchedules() {
-        throw new UnsupportedOperationException();
+        Iterable<Schedule> schedules = scheduleService.getAllSchedules();
+        List<ScheduleDTO> scheduleDTOs = utils.convertScheduleListToScheduleDTOList(schedules);
+        return scheduleDTOs;
     }
 
     @GetMapping("/pet/{petId}")
